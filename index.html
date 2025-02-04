@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./main.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="content">
+        <div class="menu">
+            <div class="h1">
+                <h1>Where in the world?</h1>
+            </div>
+            <div class="btn1" style="cursor: pointer; border: none;" onclick="toggleDarkMode()">
+                <button><img src="./icon/Group 3 (1).svg" alt=""><span>Dark Mode</span></button>
+            </div>
+        </div>
+        <div class="searchfilter">
+            <div class="search-box">
+                <i class="search"></i>
+                <input type="text" id="search" placeholder="Search for a country...">
+            </div>        
+            <select id="region-filter">
+                <option value="all">Filter by Region</option>
+                <option value="Africa">Africa</option>
+                <option value="Americas">Americas</option>
+                <option value="Asia">Asia</option>
+                <option value="Europe">Europe</option>
+                <option value="Oceania">Oceania</option>
+            </select>
+        </div>
+        <ul id="list"></ul>
+    </div>
+    <script src="./app.js"></script>
+</body>
+
+</html>

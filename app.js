@@ -1,25 +1,34 @@
-const list = document.getElementById("list")
+const list = document.getElementById("list");
+let selectCountryName;
+
 async function getData() {
-    const res = await fetch ("https://restcountries.com/v3.1/all") 
-    const data = await res.json()
-    if(! res.ok || res.status !== 200) {
-        throw new Error("xatolik")
+    const res = await fetch("https://restcountries.com/v3.1/all");
+    const data = await res.json();
+    if (!res.ok || res.status !== 200) {
+        throw new Error("Error fetching countries data");
     }
-    return data
+    return data;
 }
-getData() 
+
+window.addEventListener("DOMContentLoaded", () => {
+    if (selectCountryName) {
+        getCountryData();
+    } else {
+        getCountriesData();
+    }
+});
+
+getData()
     .then((data) => {
-        render(data)
+        render(data);
     })
-    .catch((err) =>{
-        console.log(err)
+    .catch((err) => {
+        console.log(err);
     })
-    .finally(() => {
-    ;
-    });
+    .finally(() => { });
 
+let countries = [];
 
-let countries = []; 
 function render(data) {
     const list = document.getElementById("list");
     list.innerHTML = ""; 
@@ -35,12 +44,35 @@ function render(data) {
                 <p><b>Region:</b> ${country.region}</p>
                 <a href="${country.maps.googleMaps}" target="_blank">Google Maps</a>
             `;
+
+            div.addEventListener("click", () => {
+                selectCountryName = country.name.common;
+                list.innerHTML = "";  
+                renderCountry(country); 
+            });
+
             list.append(div);
         });
     } else {
         list.innerHTML = "<p>No countries found</p>";
     }
 }
+
+function renderCountry(country) {
+    const list = document.getElementById("list");
+    const div = document.createElement("div");
+    div.classList.add("country-detail");
+    div.innerHTML = `
+        <img src="${country.flags.svg}" width="260" height="160" alt="${country.flags.alt}" />
+        <h2>${country.name.common}</h2>
+        <p><b>Population:</b> ${country.population}</p>
+        <p><b>Region:</b> ${country.region}</p>
+        <a href="${country.maps.googleMaps}" target="_blank">Google Maps</a>
+    `;
+
+    list.append(div);
+}
+
 
 function searchCountries(event) {
     const searchQuery = event.target.value.toLowerCase();
